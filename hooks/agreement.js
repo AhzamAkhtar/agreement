@@ -23,7 +23,7 @@ export function useAgreement(){
     const [initialized , setInitialized] = useState(false)
     const [transactionPending, setTransactionPending] = useState(false)
 
-    const [index , ,setIndex] = useState()
+    const [index , setIndex] = useState()
     const [ name , setName] = useState("")
     const [person_one_contract_addy , setPerson_one_contract_addy] = useState()
     const [person_two_contract_addy , setPerson_two_contract_addy] = useState()
