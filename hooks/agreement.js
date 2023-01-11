@@ -23,6 +23,7 @@ export function useAgreement(){
     const [initialized , setInitialized] = useState(false)
     const [transactionPending, setTransactionPending] = useState(false)
 
+    const [index , ,setIndex] = useState()
     const [ name , setName] = useState("")
     const [person_one_contract_addy , setPerson_one_contract_addy] = useState()
     const [person_two_contract_addy , setPerson_two_contract_addy] = useState()
@@ -92,6 +93,10 @@ export function useAgreement(){
         setexp_time(e.target.value)
     }
 
+    const indexHandler = (e) => {
+        setIndex(e.target.value)
+    }
+
 
     const initializeUser = async () =>{
         console.log("init")
@@ -124,9 +129,11 @@ export function useAgreement(){
                 setTransactionPending(true)
                 const [profilePda,profileBump] = findProgramAddressSync([utf8.encode('USER_STATE'), publicKey.toBuffer()], program.programId)
                 const [contractPda,contractBump] = findProgramAddressSync([utf8.encode('CONTRACT_STATE'),publicKey.toBuffer() , Uint8Array.from([lastTodo])],program.programId)
-                if (person_one_contract_addy,person_two_contract_addy,content,contract_type,exp_time){
+                if (index,person_one_contract_addy,person_two_contract_addy,content,contract_type,exp_time){
                     await program.methods
-                    .createContract(person_one_contract_addy,
+                    .createContract(
+                        index,
+                        person_one_contract_addy,
                         person_two_contract_addy,
                         content,
                         contract_type,
@@ -144,6 +151,7 @@ export function useAgreement(){
             } catch(error){
                 console.log(error)
             } finally {
+                setIndex("")
                 setTransactionPending(false)
                 setPerson_one_contract_addy("")
                 setPerson_two_contract_addy("")
@@ -157,6 +165,7 @@ export function useAgreement(){
     return {
         initializeUser,
         createContract,
+        indexHandler,
         nameHandleChange,
         personOneAddyHandler,
         personTwoAddyHandler,
@@ -164,6 +173,7 @@ export function useAgreement(){
         contractTypeHandler,
         expTimeHandler,
         name,
+        index,
         person_one_contract_addy,
         person_two_contract_addy,
         content,

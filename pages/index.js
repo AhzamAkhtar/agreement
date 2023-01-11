@@ -15,6 +15,8 @@ const Home = () => {
     contractTypeHandler,
     expTimeHandler,
     name,
+    index,
+    indexHandler,
     person_one_contract_addy,
     person_two_contract_addy,
     content,
@@ -29,6 +31,23 @@ const Home = () => {
       {initialized ? (
         <>
         <h1>Initialized</h1>
+
+        <input value={index} placeholder="Enter the index" onChange={indexHandler} type="text"></input>
+
+        <input value={person_one_contract_addy} placeholder="Enter person 1" onChange={personOneAddyHandler} type="text"></input>
+
+        <input value={person_two_contract_addy} placeholder="Enter person 2" onChange={personTwoAddyHandler} type="text"></input>
+
+        <input value={content} placeholder="content" onChange={contentHandler} type="text"></input>
+
+        <input value={contract_type} placeholder="enter content type" onChange={contractTypeHandler} type="text"></input>
+
+        <input value={exp_time} placeholder="Enter exp time" onChange={expTimeHandler} type="text"></input>
+
+        <button onClick={() => createContract()}>
+          AddContract
+        </button>
+
         </>
       ) : (
         <>
