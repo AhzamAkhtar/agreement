@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import Head from "next/head";
 import Image from "next/image";
@@ -5,6 +6,10 @@ import styles from "../styles/Home.module.css";
 import { useAgreement } from "../hooks/agreement";
 
 const Home = () => {
+  const WalletMultiButtonDynamic = dynamic(
+    async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+    { ssr: false }
+);
   const {
     initializeUser,
     createContract,
@@ -56,7 +61,7 @@ const Home = () => {
         <button onClick={()=> initializeUser()} disabled={transactionPending}>INIT</button>
         </>
       )}
-      <WalletMultiButton/>
+      <WalletMultiButtonDynamic/>
     </div>
   </>;
 };
